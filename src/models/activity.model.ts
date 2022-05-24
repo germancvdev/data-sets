@@ -1,4 +1,5 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, belongsTo} from '@loopback/repository';
+import {Category} from './category.model';
 
 @model()
 export class Activity extends Entity {
@@ -43,6 +44,9 @@ export class Activity extends Entity {
     type: 'date',
   })
   date?: string;
+
+  @belongsTo(() => Category)
+  categoryId: string;
 
   constructor(data?: Partial<Activity>) {
     super(data);

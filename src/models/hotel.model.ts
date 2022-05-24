@@ -1,4 +1,6 @@
-import {Entity, model, property} from '@loopback/repository';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Service} from './service.model';
+import {HotelService} from './hotel-service.model';
 
 @model()
 export class Hotel extends Entity {
@@ -44,6 +46,8 @@ export class Hotel extends Entity {
   })
   images?: string[];
 
+  @hasMany(() => Service, {through: {model: () => HotelService}})
+  services: Service[];
 
   constructor(data?: Partial<Hotel>) {
     super(data);
