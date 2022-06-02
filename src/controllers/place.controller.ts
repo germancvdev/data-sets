@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -21,6 +22,7 @@ import {
 import {Place} from '../models';
 import {PlaceRepository} from '../repositories';
 
+@authenticate('jwt')
 export class PlaceController {
   constructor(
     @repository(PlaceRepository)
@@ -81,8 +83,13 @@ export class PlaceController {
       },
     },
   })
-  async find(@param.filter(Place) filter?: Filter<Place>): Promise<Place[]> {
-    return this.placeRepository.find(filter);
+  async find(
+    @param.filter(Place) filter?: Filter<Place>,
+  ): Promise<{results: Place[]; total: number}> {
+    return {
+      total: (await this.placeRepository.count(filter?.where)).count,
+      results: await this.placeRepository.find(filter),
+    };
   }
 
   @patch('/places')
