@@ -8,3 +8,4 @@ export * from './hotel-service.controller';
 export * from './category-activity.controller';
 export * from './activity-category.controller';
 export * from './user.controller';
+export * from './chart.controller';

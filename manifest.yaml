@@ -1,5 +1,5 @@
 applications:
   - name: datasets
-    memory: 100M
+    memory: 200M
     command: node .
     # buildpack: https://github.com/cloudfoundry/nodejs-buildpack
